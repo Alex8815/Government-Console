@@ -27,5 +27,16 @@ namespace Government.Objects.EconomicConcepts
         {
             Money -= lessMoney;
         }
+
+        public bool AttemptRemoveFunds(long lessMoney)
+        {
+            bool result = false;
+            if (Money > lessMoney)
+            {
+                RemoveFunds(lessMoney);
+                result = true;
+            }    
+            return result;
+        }
     }
 }

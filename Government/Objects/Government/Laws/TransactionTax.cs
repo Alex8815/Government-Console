@@ -14,5 +14,12 @@ namespace Government.Objects.Government.Laws
         public TransactionTax(double rate) {
             TaxRate = rate;
         }
+
+        public long CalculateTax(long totalCost)
+        {
+            double taxRate = TaxRate;
+            long toGov = (long)((double)totalCost / 100 * taxRate);
+            return toGov;
+        }
     }
 }
