@@ -1,13 +1,13 @@
-﻿using Government.Objects.EconomicConcepts;
-using Government.Objects.Government.Laws;
-using Government.Objects.SocietyConcepts.Corporations;
+﻿using GovernmentMain.Objects.EconomicConcepts;
+using GovernmentMain.Objects.Government.Laws;
+using GovernmentMain.Objects.SocietyConcepts.Corporations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Government.Objects.Government
+namespace GovernmentMain.Objects.Government
 {
     //remember the government has its hands in everything
     public class Gov

@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.XPath;
 
-namespace Government.Objects.Government.Laws
+namespace GovernmentMain.Objects.Government.Laws
 {
     /// <summary>
     /// for describing the Marginal tax brackets for salary income.

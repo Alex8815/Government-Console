@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Government.Objects.SocietyConcepts
+namespace GovernmentMain.Objects.SocietyConcepts
 {
     public class Job
     {

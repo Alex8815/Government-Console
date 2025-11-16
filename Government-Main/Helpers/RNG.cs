@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Government.Helpers
+namespace GovernmentMain.Helpers
 {
     //we're wrapping the random functions in case we want to do more to the rng manipulation for things
     public static class RNG

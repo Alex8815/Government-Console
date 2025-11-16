@@ -18,6 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Government-Main\GovernmentMain.csproj" />
     <ProjectReference Include="..\Government\Government.csproj" />
   </ItemGroup>
 

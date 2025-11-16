@@ -1,13 +1,13 @@
-﻿using Government.Helpers;
-using Government.Objects.EconomicConcepts;
-using Government.Objects.Government;
+﻿using GovernmentMain.Helpers;
+using GovernmentMain.Objects.EconomicConcepts;
+using GovernmentMain.Objects.Government;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Government.Objects.SocietyConcepts.Corporations
+namespace GovernmentMain.Objects.SocietyConcepts.Corporations
 {
     public class School
     {

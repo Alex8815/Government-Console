@@ -1,15 +1,15 @@
-﻿using Government.Helpers;
-using Government.Objects.EconomicConcepts;
-using Government.Objects.Government;
-using Government.Objects.SocietyConcepts;
-using Government.Objects.SocietyConcepts.Corporations;
+﻿using GovernmentMain.Helpers;
+using GovernmentMain.Objects.EconomicConcepts;
+using GovernmentMain.Objects.Government;
+using GovernmentMain.Objects.SocietyConcepts;
+using GovernmentMain.Objects.SocietyConcepts.Corporations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Government.Objects
+namespace GovernmentMain.Objects
 {
     public class Person
     {
