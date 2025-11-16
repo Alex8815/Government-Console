@@ -14,6 +14,8 @@ namespace GovernmentMain.Objects.SocietyConcepts.Corporations
         private Gov _gov;
 
         public Wallet Revenue { get; private set; }
+
+        public string Name { get; private set; } = "thing store";
         
 
         public Shop(Gov gov) { 
@@ -35,7 +37,7 @@ namespace GovernmentMain.Objects.SocietyConcepts.Corporations
 
 
             p.Money.RemoveFunds(totalCost);
-            _gov.PayTransactionTax(toGov);
+            _gov.PayTransactionTax(this, toGov);
             
             Revenue.AddFunds(totalCost - toGov);
             

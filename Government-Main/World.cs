@@ -34,6 +34,7 @@ namespace GovernmentMain
             School school = new School(gov);
 
             Job labourer = new Job("Labourer", 13);
+            Job bartender = new Job("Bartender", 11);
             Person p = new Person(gov, Namer.GeneratePersonName());
             Person q = new Person(gov, Namer.GeneratePersonName());
             Person child = new Person(gov, Namer.GeneratePersonName());
@@ -41,6 +42,7 @@ namespace GovernmentMain
             school.Enroll(child);
 
             p.Hire(labourer);
+            p.Hire(bartender);
             q.Hire(labourer);
 
             Console.WriteLine(gov.Citizens[0].Name);
@@ -56,8 +58,8 @@ namespace GovernmentMain
             {
                 Console.WriteLine($"It is {Year} ... ");
 
-                p.PaySalary();
-                q.PaySalary();
+                p.CollectSalary();
+                q.CollectSalary();
 
                 if (p.Money.Money > 20)
                 {
@@ -66,19 +68,28 @@ namespace GovernmentMain
 
 
                 //gov actions
-                gov.FundPublicSchools();
-                gov.AllSchools_Do();
+                //collect taxes first, by letting the citizens live
                 gov.AllCitizens_Do();
-                Year++;//maybe create a World object to hold this
-                       // Console.WriteLine(p.Money.Money + " " + gov.Money.Money);
 
+                //distribute money
+                gov.FundPublicSchools();
+
+                //perform government tasks
+                gov.AllSchools_Do();
+                
+                long govIncome = gov.Money.AnnualIncome;
+                long govExpenses = gov.Money.AnnualExpenses;
+                gov.Money.AnnualCycle();
+                Year++;//maybe create a World object to hold this
+                Console.WriteLine($"Total: {gov.Money.Money}, Annual:{govIncome}, Expenses:{govExpenses}");
+                Console.WriteLine(school.Funds.Money);
                 var end = Console.ReadKey()!.Key;
                 if (end.Equals(ConsoleKey.E))
                 {
                     
                     break;
                 }
-                Console.Clear();
+               // Console.Clear();
             }
             //end
         }

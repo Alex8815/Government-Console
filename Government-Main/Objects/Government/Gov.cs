@@ -30,7 +30,7 @@ namespace GovernmentMain.Objects.Government
             Money = new Wallet(0);
 
             IncomeTax = new IncomeTax(new KeyValuePair<long, double>(5,20));
-            IncomeTax.AddTaxBracket(new KeyValuePair<long, double>(10, 30));
+            IncomeTax.AddTaxBracket(new KeyValuePair<long, double>(15, 50));
 
             TransactionTax = new TransactionTax(10);
         }
@@ -47,12 +47,19 @@ namespace GovernmentMain.Objects.Government
             Money.AddFunds(taxMoney);
             //Console.WriteLine($"IncomeTax: {citizen.Name} has paid ${taxMoney} this year");
         }
-        public void PayTransactionTax(long taxMoney)
+        //shops and schools should become implementations of Organisations or something?
+        public void PayTransactionTax(Shop s, long taxMoney)
         {
             Money.AddFunds(taxMoney);
+            Console.WriteLine($"{s.Name} paid ${taxMoney} in sales tax");
+        }
+        public void PayTransactionTax(School s, long taxMoney)
+        {
+            Money.AddFunds(taxMoney);
+            Console.WriteLine($"{s.Name} paid ${taxMoney} in sales tax");
         }
 
-    //Education
+        //Education
         public void RegisterPublicSchool(School school)
         {
             AllSchools.Add(school);

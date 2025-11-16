@@ -36,11 +36,11 @@ namespace GovernmentMain.Objects.Government.Laws
         //salary of 13
         // 5, 20%
         // 10, 30%
-        public long CalculateTaxToPay(long salary)
+        public long CalculateTaxToPay(long totalIncome)
         {
             long result = 0;
 
-            long hold = salary; //we want to take everything from over the bracket from the hold, then do maths on it
+            long hold = totalIncome; //we want to take everything from over the bracket from the hold, then do maths on it
 
             //get the data from the income tax boundaries and percents
             var bracketsT = new long[IncomeBrackets.Keys.Count];

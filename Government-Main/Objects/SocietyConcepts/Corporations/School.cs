@@ -62,7 +62,7 @@ namespace GovernmentMain.Objects.SocietyConcepts.Corporations
                 if (Funds.AttemptRemoveFunds(costs))
                 {
                     long toGov = _gov.TransactionTax.CalculateTax(costs);
-                    _gov.PayTransactionTax(toGov);
+                    _gov.PayTransactionTax(this, toGov);
 
                     person.Educate();
                 }

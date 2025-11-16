@@ -27,7 +27,7 @@ namespace GovernmentMain.Objects
 
         //life
         public School School { get; private set; }
-        public Job Job { get; private set; } 
+        public List<Job> Job { get; private set; } = new List<Job>();
 
         //assets
         public Wallet Money { get; private set; }
@@ -51,20 +51,29 @@ namespace GovernmentMain.Objects
         //eventually this will be through the organisation that performes the hire?
         public void Hire(Job job)
         {
-            Job = job;
+            Job.Add(job);
         }
 
         //this would maybe take in a corporation, who owns the job to reduce their funds?
-        public void PaySalary()
+        public void CollectSalary()
         {
-            if (Job != null)
+            foreach (Job job in Job)
             {
-                long income = Job.Salary;
-                long taxToPay = _gov.IncomeTax.CalculateTaxToPay(income);
-                long afterTax = income - taxToPay;
-                Money.AddFunds(afterTax);
-                _gov.PayIncomeTax(this, taxToPay);
+                long income = job.Salary;
+               
+                Money.AddFunds(income);
             }
+        }
+    //Economics
+        public void PayTaxes()
+        {
+            //by having the person responsible for their taxes, we can allow for person objects to falsify or dodge taxes
+            //we can also allow for the Gov obj to spend some resources collecting tax, or checking proper taxes are paid
+            //for now, everyone is law-abiding, so just calc & pay
+            long taxToPay = _gov.IncomeTax.CalculateTaxToPay(Money.AnnualIncome);
+            Money.RemoveFunds(taxToPay);
+            _gov.PayIncomeTax(this, taxToPay);
+            Console.WriteLine($"{Name} has paid ${taxToPay} this year");
         }
     //Education
         public void Enroll(School school)
@@ -91,7 +100,7 @@ namespace GovernmentMain.Objects
         }
 
     //do
-        public void Person_Do()
+        public void Person_Do() //Annual cycle
         {
             //age up
             Age += 1;
@@ -106,6 +115,9 @@ namespace GovernmentMain.Objects
                 }
             }
 
+            //end of year
+            PayTaxes();
+            Money.AnnualCycle();
         }
 
         

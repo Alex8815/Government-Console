@@ -7,25 +7,54 @@ using System.Threading.Tasks;
 
 namespace GovernmentMain.Objects.EconomicConcepts
 {
-    public class Wallet
+    /// <summary>
+    /// use this to determine how to sort and manage money coming in
+    /// </summary>
+    public enum FundsType
     {
-        public long LifetimeIncome { get; private set; }
+        Income,
+        CapitalGains,
+        Loan,
+        Gift,
+    }
 
-        public long Money { get; private set; }
+    public class Wallet //wallet is the instantly accessible money
+    {
+        public long LifetimeIncome { get; private set; } = 0;
+
+        public long AnnualIncome { get; private set; } = 0;
+
+        public long AnnualExpenses { get; private set; } = 0;
+
+        public long Money { get; private set; } = 0;
 
         public Wallet(long initialCash) {
             Money = initialCash;
         }
 
-        public void AddFunds(long moreMoney)
+        public void AddFunds(long moreMoney, FundsType type = FundsType.Income)
         {
             Money += moreMoney;
+
+            if (type.Equals(FundsType.Income))
+            {
+                AnnualIncome += moreMoney;
+            }
+
             LifetimeIncome += moreMoney;
+        }
+
+        public void AnnualCycle()
+        {
+            //reset trackings for things
+            AnnualIncome = 0;
+            AnnualExpenses = 0;
         }
 
         public void RemoveFunds(long lessMoney)
         {
             Money -= lessMoney;
+            AnnualExpenses += lessMoney; 
         }
 
         public bool AttemptRemoveFunds(long lessMoney)
