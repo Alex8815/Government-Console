@@ -16,6 +16,7 @@ namespace GovernmentMain.Objects.EconomicConcepts
         CapitalGains,
         Loan,
         Gift,
+        Funding //e.g. distribution between internal authorities
     }
 
     public class Wallet //wallet is the instantly accessible money

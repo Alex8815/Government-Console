@@ -51,10 +51,9 @@ namespace GovernmentMain.Helpers
 
 
         //for human stats
-        public static double ApplyNormallyDistributedVariance(double input)
+        public static double ApplyNormallyDistributedVariance(double input, double default_percent = 25) //%
         {
             //used for +/- on modifiers
-            const double default_percent = 25.0;//%
             double range = input / 100 * default_percent;
 
             double num = GenerateNormalisedValue(zero, genius); //we use the GaussianRandom to build the bounds
@@ -116,32 +115,25 @@ namespace GovernmentMain.Helpers
             double part = range / 4;//4 distributions each side
             if (gNum < great) //genius
             {
-                double p = GetPercentOfPointBetweenAandB(gNum, great, genius);
+                double p = Maths.GetPercentOfPointBetweenAandB(gNum, great, genius);
                 calcPerc += (0.75 * range) + (p*part);
             }
             else if (gNum < good) //great
             {
-                double p = GetPercentOfPointBetweenAandB(gNum, good, great);
+                double p = Maths.GetPercentOfPointBetweenAandB(gNum, good, great);
                 calcPerc += (0.50 * range) + (p * part);
             }
             else if (gNum < normal) //good
             {
-                double p = GetPercentOfPointBetweenAandB(gNum, normal, good);
+                double p = Maths.GetPercentOfPointBetweenAandB(gNum, normal, good);
                 calcPerc += (0.25 * range) + (p * part);
             }
             else if (gNum <= zero) //normal
             {
-                double p = GetPercentOfPointBetweenAandB(gNum, zero, normal);
+                double p = Maths.GetPercentOfPointBetweenAandB(gNum, zero, normal);
                 calcPerc += (0 * range) + (p * part);
             }
             return calcPerc;
-        }
-
-        //TODO: probably a mathshelper thing if I go that far
-        public static double GetPercentOfPointBetweenAandB(double point, double upperBound, double lowerBound)
-        {
-            double p = (upperBound - point) / (upperBound - lowerBound);
-            return p;
         }
 
     }

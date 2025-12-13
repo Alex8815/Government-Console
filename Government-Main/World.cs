@@ -39,7 +39,7 @@ namespace GovernmentMain
             Person q = new Person(gov, Namer.GeneratePersonName());
             Person child = new Person(gov, Namer.GeneratePersonName());
 
-            school.Enroll(child);
+            
 
             p.Hire(labourer);
             p.Hire(bartender);
@@ -66,23 +66,23 @@ namespace GovernmentMain
                     s.PurchaseGoods(p, 20);
                 }
 
-
-                //gov actions
-                //collect taxes first, by letting the citizens live
-                gov.AllCitizens_Do();
+                if(child.Age > 5 && child.School == null)
+                {
+                    school.Enroll(child);
+                }
+               
 
                 //distribute money
-                gov.FundPublicSchools();
+                gov.GovernmentAnnualTasks();
 
                 //perform government tasks
-                gov.AllSchools_Do();
                 
-                long govIncome = gov.Money.AnnualIncome;
-                long govExpenses = gov.Money.AnnualExpenses;
-                gov.Money.AnnualCycle();
-                Year++;//maybe create a World object to hold this
-                Console.WriteLine($"Total: {gov.Money.Money}, Annual:{govIncome}, Expenses:{govExpenses}");
-                Console.WriteLine(school.Funds.Money);
+                
+               
+
+
+                //world upkeep
+                Year++;
                 var end = Console.ReadKey()!.Key;
                 if (end.Equals(ConsoleKey.E))
                 {

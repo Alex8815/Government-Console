@@ -13,6 +13,9 @@ namespace GovernmentMain.Objects
 {
     public class Person
     {
+        private const int __intelligence_variance_percent = 60;
+        private const int __intelligence_default = 10;
+
         //overlord
         private Gov _gov;
 
@@ -22,8 +25,9 @@ namespace GovernmentMain.Objects
         public int Age { get; set; } //nobody is living to 2 billion
         //perhaps we set a LifeExpectancy, which can be +/- with various interactions?
 
-        //stats
+        //stats - person stats maybe should be their own class, too
         public double Education { get; private set; } = 0;
+        public double Intelligence { get; private set; } = 0;
 
         //life
         public School School { get; private set; }
@@ -42,6 +46,11 @@ namespace GovernmentMain.Objects
             Name = name;
             Age = 0;
             Money = new Wallet(0);
+
+            //generate stats
+            Intelligence = RNG.ApplyNormallyDistributedVariance(__intelligence_default, __intelligence_variance_percent);
+
+            Console.WriteLine($"{Name}: int:{Intelligence}");
 
             gov.RegisterCitizen(this);
         }
@@ -62,6 +71,7 @@ namespace GovernmentMain.Objects
                 long income = job.Salary;
                
                 Money.AddFunds(income);
+                Console.WriteLine($"{Name} has collected ${job.Salary} from their job as a {job.Title}");
             }
         }
     //Economics

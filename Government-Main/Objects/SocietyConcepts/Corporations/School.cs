@@ -57,7 +57,7 @@ namespace GovernmentMain.Objects.SocietyConcepts.Corporations
             foreach (Person person in Students)
             {
                 //cost to educate per person
-                long costs = 4;
+                long costs = 1;
                 //ask government how much to spend
                 if (Funds.AttemptRemoveFunds(costs))
                 {

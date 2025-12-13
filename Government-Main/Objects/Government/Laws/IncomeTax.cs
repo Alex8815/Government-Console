@@ -18,15 +18,15 @@ namespace GovernmentMain.Objects.Government.Laws
         // there actually can be configured multiple different brackets, so should be a collection to check
         public OrderedDictionary IncomeBrackets { get; private set; }
 
-        public IncomeTax(KeyValuePair<long, double> initialBracket) {
+        public IncomeTax(long bracketMin, double percentToBeTaxed) {
             IncomeBrackets = new OrderedDictionary();
-            IncomeBrackets.Add(initialBracket.Key, initialBracket.Value);
+            IncomeBrackets.Add(bracketMin, percentToBeTaxed);
         }
 
         
-        public void AddTaxBracket(KeyValuePair<long, double> newBracket)
+        public void AddTaxBracket(long bracketMin, double percentToBeTaxed)
         {
-            IncomeBrackets.Add(newBracket.Key, newBracket.Value);
+            IncomeBrackets.Add(bracketMin, percentToBeTaxed);
         }
         public void RemoveTaxBracket(long key)
         {

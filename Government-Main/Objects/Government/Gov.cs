@@ -1,4 +1,5 @@
 ﻿using GovernmentMain.Objects.EconomicConcepts;
+using GovernmentMain.Objects.Government.Departments;
 using GovernmentMain.Objects.Government.Laws;
 using GovernmentMain.Objects.SocietyConcepts.Corporations;
 using System;
@@ -21,16 +22,20 @@ namespace GovernmentMain.Objects.Government
         
         //utils
 
-        //Education
-        public List<School> PublicSchools { get; private set; } = new List<School>();
-        public List<School> AllSchools { get; private set; } = new List<School>();
+        //departments
+        public DepartmentOfEducation Education { get; private set; }
+     
 
         public Gov() {
 
-            Money = new Wallet(0);
+            Money = new Wallet(10); //start the government off with $10, to fund things
 
-            IncomeTax = new IncomeTax(new KeyValuePair<long, double>(5,20));
-            IncomeTax.AddTaxBracket(new KeyValuePair<long, double>(15, 50));
+            //build departments
+            Education = new DepartmentOfEducation(this, 0);
+
+            IncomeTax = new IncomeTax(5,20);
+            IncomeTax.AddTaxBracket(15, 50);
+            IncomeTax.AddTaxBracket(25, 100);
 
             TransactionTax = new TransactionTax(10);
         }
@@ -62,43 +67,54 @@ namespace GovernmentMain.Objects.Government
         //Education
         public void RegisterPublicSchool(School school)
         {
-            AllSchools.Add(school);
-            PublicSchools.Add(school);
+            Education.RegisterPublicSchool(school);
         }
         public void DeregisterPublicSchool(School school)
         {
-            PublicSchools.Remove(school);
+            Education.DeregisterPublicSchool(school);
         }
         public void DestroySchool(School school)
         {
-            AllSchools.Remove(school);
-            if (PublicSchools.Contains(school))
+            Education.DestroySchool(school);
+        }
+
+        public void FundDepartmentOfEducation()
+        {
+            //need to call a fund DoE first
+
+            long configuredEducationBudget = 4;
+            if (Money.AttemptRemoveFunds(configuredEducationBudget))
             {
-                PublicSchools.Remove(school);
+                Education.Fund(configuredEducationBudget);
             }
         }
 
-        public void FundPublicSchools()
+
+        //actions
+
+        public void GovernmentAnnualTasks()
         {
-            if (PublicSchools.Count == 0) return;
-            long fundsForSchools = 4;
-            long fundsPer = (long)(fundsForSchools / PublicSchools.Count);
-            foreach (School school in PublicSchools)
-            {
-                if (Money.AttemptRemoveFunds(fundsForSchools))
-                {
-                    school.Fund(fundsPer);
-                }
-            }
+            //Fund Departments:
+            FundDepartmentOfEducation();
+
+
+            //perform tasks
+            Education.DepartmentOfEducation_Do();
+
+
+            //citizens go last to take advantage of changes this year, e.g. tax changes, policy changes
+            AllCitizens_Do();
+
+            //end of year stats
+            long govIncome = Money.AnnualIncome;
+            long govExpenses = Money.AnnualExpenses;
+            Money.AnnualCycle();
+
+            Console.WriteLine($"Total: {Money.Money}, Annual:{govIncome}, Expenses:{govExpenses}");
         }
 
-        public void AllSchools_Do()
-        {
-            foreach(School school in AllSchools)
-            {
-                school.Educate();
-            }
-        }
+
+
         public void AllCitizens_Do()
         {
             foreach(Person person in Citizens)

@@ -49,10 +49,21 @@ namespace Tests
             Console.WriteLine($"o{over} u{under}, e{equal}");
         }
 
-        [Test]
-        public void RNG_GetPercentOfPointBetweenAandB()
+
+        [TestCase(45,100,45)]
+        [TestCase(45, 50, 22)]
+        [TestCase(33,15,4)]
+        public void Maths_GrabMoneyPercent(double percent, long total, long expected)
         {
-            double v = RNG.GetPercentOfPointBetweenAandB(0.1, 1, 0.01);
+            var res = Maths.GrabMoneyPercent(percent, total);
+            Console.WriteLine(res);
+            Assert.IsTrue(res == expected);
+        }
+
+        [Test]
+        public void Maths_GetPercentOfPointBetweenAandB()
+        {
+            double v = Maths.GetPercentOfPointBetweenAandB(0.1, 1, 0.01);
             Console.WriteLine($"{v}%");
         }
 

@@ -18,13 +18,18 @@ namespace GovernmentMain.Helpers
             string[] forenames = (g < 2) ? _firstnames_1 : _firstnames_2;
 
             int f = RNG.UpTo(forenames.Length-1);
-            string first = forenames[f];
-
+            string first = Capitalise(forenames[f]);
+            
             int s = RNG.UpTo(_lastnames.Length-1);
-            string last = _lastnames[s];
+            string last = Capitalise(_lastnames[s]);
 
             string result = $"{first} {last}";
             return result;
+        }
+
+        private static string Capitalise(string input)
+        {
+            return input[0].ToString().ToUpper() + input.Substring(1);
         }
     }
 }
